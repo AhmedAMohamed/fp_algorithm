@@ -56,7 +56,7 @@ private:
 
     void mine(FPTree *tree, std::string suffix, RESULT &map);
 
-    FPTree getPrefixTree(FPTree *tree, HeaderNode *node);
+    FPTree getConditionalTree(FPTree *tree, HeaderNode *node);
 
     void prune(FPTree *tree, FPHeader *conditional_header, HeaderNode *head);
 };

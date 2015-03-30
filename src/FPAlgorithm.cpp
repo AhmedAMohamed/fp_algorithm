@@ -124,16 +124,23 @@ void FPAlgorithm::forEachBasketInFile(std::function<void(std::vector<std::string
 
 
 void FPAlgorithm::mine(FPTree *tree, std::string suffix, FPAlgorithm::RESULT &map) {
+    //loop over each item in the tree
     for(auto hn : tree->getHeader()->getAscender())
     {
+        //given that the item is in the tree this means it is frequent so include it in the result
+        //when including it add the suffix to it suffic represent items the current tree is conditioned on
         auto& values = map[std::string(1,(hn->getName()+suffix).back())];
         values.insert(RESULT::mapped_type::value_type(hn->getName() + suffix, hn->getCount()));
-        FPTree new_tree = getPrefixTree(tree, hn);
+        
+        //get the conditional tree of the current item + suffix
+        FPTree new_tree = getConditionalTree(tree, hn);
+
+        //mine the generated tree, with a new suffix
         mine(&new_tree,hn->getName()+suffix, map);
     }
 }
 
-FPTree FPAlgorithm::getPrefixTree(FPTree *tree, HeaderNode *header) {
+FPTree FPAlgorithm::getConditionalTree(FPTree *tree, HeaderNode *header) {
 
     //create the conditional tree and fetch its root
     FPTree conditional_tree = FPTree::createConditionalTree(nullptr);
