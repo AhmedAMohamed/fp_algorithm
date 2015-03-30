@@ -146,7 +146,7 @@ FPTree FPAlgorithm::getConditionalTree(FPTree *tree, HeaderNode *header) {
     FPTree conditional_tree = FPTree::createConditionalTree(nullptr);
     ConditionalTreeNode* conditional_tree_root = (ConditionalTreeNode*)conditional_tree.getRoot();
 
-    //get the original tree root and make its resource point to our conditional tree root
+    //get the original tree root and make its copy node point to our conditional tree root
     tree->getRoot()->setCopyNode(conditional_tree_root);
 
     // get the first linked node to the header
