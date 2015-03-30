@@ -205,7 +205,7 @@ FPTree FPAlgorithm::getConditionalTree(FPTree *tree, HeaderNode *header) {
         }
         //we always get out when we are at root node
         //so we need to check if there is a prev node with parent not set
-        //adjust the prev node to point to the conditional root & set it to the root
+        //adjust the prev node to point to the conditional root
         if(prev)
             prev->setParent(conditional_tree_root);
 
@@ -213,14 +213,14 @@ FPTree FPAlgorithm::getConditionalTree(FPTree *tree, HeaderNode *header) {
         condition_node = condition_node->getSibling();
     }
 
-    //remove items with low support and reset resource pointers to null to detach conditional tree from current tree
+    //remove items with low support
     prune(&conditional_tree, conditional_tree.getHeader(), header);
     return conditional_tree;
 }
 
 void FPAlgorithm::prune(FPTree *tree, FPHeader *conditional_header, HeaderNode *head) {
-    //Here we loop over the whole created conditional tree again and check each node see if its support is low
-    //from the tree header if so remove it and adjust the child parent by keeping a previous pointer throughout
+    //Here we loop over the whole created conditional tree again and check each node and see if its support is low
+    //from the tree header, if so, remove it and adjust the child parent by keeping a previous pointer throughout
     //the traversal
 
 
